@@ -18,8 +18,10 @@ public class AddFees extends javax.swing.JFrame {
     public AddFees() {
         initComponents();
         displayCashFirst();
-        
+               
     }
+    
+    
     
     
     public void displayCashFirst(){
@@ -281,8 +283,8 @@ public class AddFees extends javax.swing.JFrame {
 
         lbl_DD.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_DD.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_DD.setText("DD :");
-        PanelParent.add(lbl_DD, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 50, -1));
+        lbl_DD.setText("DD No :");
+        PanelParent.add(lbl_DD, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 70, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -292,12 +294,12 @@ public class AddFees extends javax.swing.JFrame {
         lbl_BankName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_BankName.setForeground(new java.awt.Color(255, 255, 255));
         lbl_BankName.setText("Bank Name :");
-        PanelParent.add(lbl_BankName, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 100, -1));
+        PanelParent.add(lbl_BankName, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 90, -1));
 
         lbl_Cheque.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_Cheque.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_Cheque.setText("Cheque :");
-        PanelParent.add(lbl_Cheque, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 70, -1));
+        lbl_Cheque.setText("Cheque No :");
+        PanelParent.add(lbl_Cheque, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 90, -1));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -332,6 +334,11 @@ public class AddFees extends javax.swing.JFrame {
         combo_ModeOfPayment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DD", "Cheque", "Cash", "Card" }));
         combo_ModeOfPayment.setSelectedIndex(2);
         combo_ModeOfPayment.setToolTipText("");
+        combo_ModeOfPayment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_ModeOfPaymentActionPerformed(evt);
+            }
+        });
         PanelParent.add(combo_ModeOfPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 180, -1));
 
         txt_BankName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -659,6 +666,42 @@ public class AddFees extends javax.swing.JFrame {
     private void txt_AmountInWordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_AmountInWordsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_AmountInWordsActionPerformed
+
+    private void combo_ModeOfPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_ModeOfPaymentActionPerformed
+        // TODO add your handling code here:
+        if(combo_ModeOfPayment.getSelectedIndex() == 0){
+            lbl_DD.setVisible(true);
+            txt_DD.setVisible(true);
+            
+            lbl_Cheque.setVisible(false);
+            txt_Cheque.setVisible(false);
+            
+            lbl_BankName.setVisible(true);
+            txt_BankName.setVisible(true);
+        }
+        
+         if(combo_ModeOfPayment.getSelectedIndex() == 1){
+            lbl_DD.setVisible(false);
+            txt_DD.setVisible(false);
+            
+            lbl_Cheque.setVisible(true);
+            txt_Cheque.setVisible(true);
+            
+            lbl_BankName.setVisible(true);
+            txt_BankName.setVisible(true);
+        }
+         
+          if(combo_ModeOfPayment.getSelectedIndex() == 2){
+            lbl_DD.setVisible(false);
+            txt_DD.setVisible(false);
+            
+            lbl_Cheque.setVisible(false);
+            txt_Cheque.setVisible(false);
+            
+            lbl_BankName.setVisible(false);
+            txt_BankName.setVisible(false);
+        }
+    }//GEN-LAST:event_combo_ModeOfPaymentActionPerformed
 
     /**
      * @param args the command line arguments
