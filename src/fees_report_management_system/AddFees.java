@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package fees_report_management_system;
+package Fees_report_Management_System;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -713,6 +713,27 @@ public class AddFees extends javax.swing.JFrame {
 
     private void txt_AmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_AmountActionPerformed
         // TODO add your handling code here:
+        
+//        Float amount = Float.parseFloat(txt_Amount.getText());
+        
+        String am = txt_Amount.getText();
+        
+        float amount = Float.parseFloat(am);
+        
+
+        Float CGST = (float)(amount * 0.09);
+        txt_CGST.setText(CGST.toString());
+        
+        Float SGST = CGST;
+        txt_SGST.setText(SGST.toString());
+        
+        Float total = (float)(amount + CGST + SGST);
+        
+        txt_Total.setText(Float.toString(total));
+        
+        
+        
+        
     }//GEN-LAST:event_txt_AmountActionPerformed
 
     private void txt_CGSTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_CGSTActionPerformed
