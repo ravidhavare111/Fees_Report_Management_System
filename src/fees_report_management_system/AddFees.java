@@ -37,13 +37,42 @@ public class AddFees extends javax.swing.JFrame {
     
     
     public boolean FeesAddValidation(){
-        if(txt_RecievedFrom.getText().equals("")){
-            JOptionPane.showMessageDialog(PanelParent, "Please enter Recieved From Name");
+        if(combo_ModeOfPayment.getSelectedItem().toString().equalsIgnoreCase("Cheque")){
+            if(txt_Cheque.getText().equals("")){
+                JOptionPane.showMessageDialog(PanelParent, "Please enter Cheque No.");
             return false;
+            }
+            if(txt_BankName.getText().equals("")){
+                JOptionPane.showMessageDialog(PanelParent, "Please enter Bank name");
+            return false;
+            }
+        }
+        
+        if(combo_ModeOfPayment.getSelectedItem().toString().equalsIgnoreCase("DD")){
+            if(txt_DD.getText().equals("")){
+                JOptionPane.showMessageDialog(PanelParent, "Please enter DD No.");
+            return false;
+            }
+            if(txt_BankName.getText().equals("")){
+                JOptionPane.showMessageDialog(PanelParent, "Please enter Bank name");
+            return false;
+            }
+        }
+        
+        if(combo_ModeOfPayment.getSelectedItem().toString().equalsIgnoreCase("Card")){
+            if(txt_BankName.getText().equals("")){
+                JOptionPane.showMessageDialog(PanelParent, "Please enter Bank name");
+            return false;
+            }
         }
         
         if(Date.getDate() == null){
             JOptionPane.showMessageDialog(PanelParent, "Please Select date");
+            return false;
+        }
+      
+        if(txt_RecievedFrom.getText().equals("")){
+            JOptionPane.showMessageDialog(PanelParent, "Please enter Recieved From Name");
             return false;
         }
         
@@ -54,8 +83,7 @@ public class AddFees extends javax.swing.JFrame {
         
         
         
-        
-        
+
         return true;
     }
     
@@ -351,7 +379,7 @@ public class AddFees extends javax.swing.JFrame {
                 txt_DDActionPerformed(evt);
             }
         });
-        PanelParent.add(txt_DD, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 180, -1));
+        PanelParent.add(txt_DD, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 180, -1));
 
         txt_Cheque.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         txt_Cheque.addActionListener(new java.awt.event.ActionListener() {
