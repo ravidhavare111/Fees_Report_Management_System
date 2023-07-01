@@ -5,6 +5,7 @@
 package fees_report_management_system;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,6 +34,36 @@ public class AddFees extends javax.swing.JFrame {
             txt_Cheque.setVisible(false);
             txt_BankName.setVisible(false);
     }
+    
+    
+    public boolean FeesAddValidation(){
+        if(txt_RecievedFrom.getText().equals("")){
+            JOptionPane.showMessageDialog(PanelParent, "Please enter Recieved From Name");
+            return false;
+        }
+        
+        if(Date.getDate() == null){
+            JOptionPane.showMessageDialog(PanelParent, "Please Select date");
+            return false;
+        }
+        
+        if(txt_Amount.getText().equals("") || txt_Amount.getText().matches("[0-9]+") == false){
+            JOptionPane.showMessageDialog(PanelParent, "Please enter Correct Amount");
+            return false;
+        }
+        
+        
+        
+        
+        
+        return true;
+    }
+    
+    
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -504,6 +535,11 @@ public class AddFees extends javax.swing.JFrame {
 
         btnPrint.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
         btnPrint.setText("PRINT");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
         PanelChild.add(btnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 510, -1, -1));
 
         PanelParent.add(PanelChild, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 1130, 580));
@@ -701,7 +737,25 @@ public class AddFees extends javax.swing.JFrame {
             lbl_BankName.setVisible(false);
             txt_BankName.setVisible(false);
         }
+          
+          if(combo_ModeOfPayment.getSelectedIndex() == 3){
+            lbl_DD.setVisible(false);
+            txt_DD.setVisible(false);
+            
+            lbl_Cheque.setVisible(false);
+            txt_Cheque.setVisible(false);
+            
+            lbl_BankName.setVisible(true);
+            txt_BankName.setVisible(true);
+        }
     }//GEN-LAST:event_combo_ModeOfPaymentActionPerformed
+
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        // TODO add your handling code here:
+        if(FeesAddValidation()){
+            JOptionPane.showMessageDialog(PanelParent, "AddFeesValidation Succesfull");
+        }
+    }//GEN-LAST:event_btnPrintActionPerformed
 
     /**
      * @param args the command line arguments
