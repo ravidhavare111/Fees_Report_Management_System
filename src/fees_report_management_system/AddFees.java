@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Fees_report_Management_System;
+package fees_report_management_system;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
