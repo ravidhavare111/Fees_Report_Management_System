@@ -348,7 +348,9 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         AddFees addFees = new AddFees();
         addFees.setVisible(true);
-        this.dispose();
+//        this.dispose();
+          this.dispose();
+        
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
