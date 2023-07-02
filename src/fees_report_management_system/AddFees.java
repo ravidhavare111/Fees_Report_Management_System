@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 
@@ -133,11 +134,71 @@ public class AddFees extends javax.swing.JFrame {
         return recieptNo+1;
     }
     
-    
-    
-    
-    
-    
+    public String insertDataToDB(){
+        String status = "";
+        
+        int recept_no = Integer.parseInt(txt_RecieptNo.getText());
+        String student_Name = txt_RecievedFrom.getText();
+        String roll_no = txt_RollNo.getText();
+        String payment_mode = combo_ModeOfPayment.getSelectedItem().toString();
+        String cheque_no = txt_Cheque.getText();
+        String bank_name = txt_BankName.getText();
+        String dd_No = txt_DD.getText();
+        String course_name = txt_Cheque.getText();
+        String gstin =txt_GSTNo.getText();
+        float total_amount = Float.parseFloat(txt_Amount.getText());
+        SimpleDateFormat DateFormat = new SimpleDateFormat("YYYY-mm-dd");
+        String date = DateFormat.format(Date.getDate());
+        float amount = Float.parseFloat(txt_Amount.getText());
+        float cgst = Float.parseFloat(txt_CGST.getText());
+        float sgst = Float.parseFloat(txt_SGST.getText());
+        String total_in_words = txt_Total.getText();
+        String remark = txt_Remark.getText();
+        int year1 = Integer.parseInt(txt_YearFrom.getText());
+        int year2 = Integer.parseInt(txt_YearTo.getText());
+        
+        try {
+            Connection con1 = ConnectionProvider.getConnection();
+            String Query = "insert into fees_details values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement pstmt = con1.prepareCall(Query);
+            pstmt.setInt(1,recept_no);
+            pstmt.setString(2,student_Name);
+            pstmt.setString(3, roll_no);
+            pstmt.setString(4, payment_mode);
+            pstmt.setString(5,cheque_no);
+            pstmt.setString(6,bank_name);
+            pstmt.setString(7,dd_No);
+            pstmt.setString(8,course_name);
+            pstmt.setString(9, gstin);
+            pstmt.setFloat(10,total_amount);
+            pstmt.setString(11, date);
+            pstmt.setFloat(12, amount);
+            pstmt.setFloat(13, cgst);
+            pstmt.setFloat(14, sgst);
+            pstmt.setString(15, total_in_words);
+            pstmt.setString(16,remark);
+            pstmt.setInt(17, year1);
+            pstmt.setInt(18, year2);
+            
+            int rowCount = pstmt.executeUpdate();
+            if(rowCount == 1){
+                status = "DONE";
+            }
+            else{
+                status = "FAIL";
+            }
+            
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+         
+        return status;  
+    }
+        
+        
+         
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -453,6 +514,9 @@ public class AddFees extends javax.swing.JFrame {
             }
         });
         PanelParent.add(txt_BankName, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 180, -1));
+
+        Date.setDateFormatString("dd-mm-YYYY");
+        Date.setMaxSelectableDate(new java.util.Date(2524591860000L));
         PanelParent.add(Date, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 40, 140, -1));
 
         PanelChild.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -854,7 +918,14 @@ public class AddFees extends javax.swing.JFrame {
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
         if(FeesAddValidation()){
-            JOptionPane.showMessageDialog(PanelParent, "AddFeesValidation Succesfull");
+            String status = insertDataToDB();
+            
+            if(status.equals("DONE")){
+                JOptionPane.showMessageDialog(PanelParent, "New Record Inserted Succesfully");
+            }
+            else{
+                JOptionPane.showMessageDialog(PanelParent, "Record Insertion FAILED");
+            }
         }
     }//GEN-LAST:event_btnPrintActionPerformed
 
