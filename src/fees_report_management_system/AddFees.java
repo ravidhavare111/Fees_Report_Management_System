@@ -75,7 +75,7 @@ public class AddFees extends javax.swing.JFrame {
             }
         }
         
-        if(Date.getDate() == null){
+        if(date.getDate() == null){
             JOptionPane.showMessageDialog(PanelParent, "Please Select date");
             return false;
         }
@@ -148,9 +148,9 @@ public class AddFees extends javax.swing.JFrame {
         String gstin =txt_GSTNo.getText();
         float total_amount = Float.parseFloat(txt_Amount.getText());
         
-        SimpleDateFormat DateFormat = new SimpleDateFormat("YYYY-mm-dd");
-        String date = DateFormat.format(Date.getDate());
-        
+        SimpleDateFormat DateFormat = new SimpleDateFormat("YYYY-MM-dd");
+        String newDate = DateFormat.format(date.getDate());      
+               
         float amount = Float.parseFloat(txt_Amount.getText());
         float cgst = Float.parseFloat(txt_CGST.getText());
         float sgst = Float.parseFloat(txt_SGST.getText());
@@ -173,7 +173,7 @@ public class AddFees extends javax.swing.JFrame {
             pstmt.setString(8,course_name);
             pstmt.setString(9, gstin);
             pstmt.setFloat(10,total_amount);
-            pstmt.setString(11, date);
+            pstmt.setString(11, newDate);
             pstmt.setFloat(12, amount);
             pstmt.setFloat(13, cgst);
             pstmt.setFloat(14, sgst);
@@ -241,7 +241,7 @@ public class AddFees extends javax.swing.JFrame {
         txt_Cheque = new javax.swing.JTextField();
         combo_ModeOfPayment = new javax.swing.JComboBox<>();
         txt_BankName = new javax.swing.JTextField();
-        Date = new com.toedter.calendar.JDateChooser();
+        date = new com.toedter.calendar.JDateChooser();
         PanelChild = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txt_YearTo = new javax.swing.JTextField();
@@ -517,8 +517,8 @@ public class AddFees extends javax.swing.JFrame {
         });
         PanelParent.add(txt_BankName, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 180, -1));
 
-        Date.setMaxSelectableDate(new java.util.Date(2524591860000L));
-        PanelParent.add(Date, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 40, 140, -1));
+        date.setMaxSelectableDate(new java.util.Date(2524591860000L));
+        PanelParent.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 40, 140, -1));
 
         PanelChild.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -972,7 +972,6 @@ public class AddFees extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser Date;
     private javax.swing.JPanel PanelBack;
     private javax.swing.JPanel PanelChild;
     private javax.swing.JPanel PanelCourseList;
@@ -993,6 +992,7 @@ public class AddFees extends javax.swing.JFrame {
     private javax.swing.JLabel btnViewAllRecords;
     private javax.swing.JComboBox<String> combo_Course;
     private javax.swing.JComboBox<String> combo_ModeOfPayment;
+    private com.toedter.calendar.JDateChooser date;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
