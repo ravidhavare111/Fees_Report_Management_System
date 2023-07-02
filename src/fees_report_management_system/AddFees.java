@@ -25,6 +25,8 @@ public class AddFees extends javax.swing.JFrame {
         initComponents();
         displayCashFirst();
         fillCoursesComboBox();
+        int recieptNo = getRecieptNo();
+        txt_RecieptNo.setText(Integer.toString(recieptNo));
                
     }
     
@@ -110,10 +112,25 @@ public class AddFees extends javax.swing.JFrame {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    
+    public int getRecieptNo(){
+        int recieptNo = 0;
         
+        try {
+            Connection con1 = ConnectionProvider.getConnection();
+            String Query = "select max(reciept_no) from fees_details";
+            PreparedStatement pstmt = con1.prepareStatement(Query);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                recieptNo = rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+        }
         
-        
-        
+        return recieptNo+1;
     }
     
     
