@@ -144,11 +144,13 @@ public class AddFees extends javax.swing.JFrame {
         String cheque_no = txt_Cheque.getText();
         String bank_name = txt_BankName.getText();
         String dd_No = txt_DD.getText();
-        String course_name = txt_Cheque.getText();
+        String course_name = txt_CourseName.getText();
         String gstin =txt_GSTNo.getText();
         float total_amount = Float.parseFloat(txt_Amount.getText());
+        
         SimpleDateFormat DateFormat = new SimpleDateFormat("YYYY-mm-dd");
         String date = DateFormat.format(Date.getDate());
+        
         float amount = Float.parseFloat(txt_Amount.getText());
         float cgst = Float.parseFloat(txt_CGST.getText());
         float sgst = Float.parseFloat(txt_SGST.getText());
@@ -515,7 +517,6 @@ public class AddFees extends javax.swing.JFrame {
         });
         PanelParent.add(txt_BankName, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 180, -1));
 
-        Date.setDateFormatString("dd-mm-YYYY");
         Date.setMaxSelectableDate(new java.util.Date(2524591860000L));
         PanelParent.add(Date, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 40, 140, -1));
 
@@ -684,7 +685,7 @@ public class AddFees extends javax.swing.JFrame {
         });
         PanelChild.add(btnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 510, -1, -1));
 
-        PanelParent.add(PanelChild, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 1130, 580));
+        PanelParent.add(PanelChild, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 1130, 580));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
