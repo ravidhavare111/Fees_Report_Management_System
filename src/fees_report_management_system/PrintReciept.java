@@ -14,6 +14,7 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.ObjectInputStream;
+import static java.lang.System.exit;
 
 /**
  *
@@ -186,6 +187,9 @@ public class PrintReciept extends javax.swing.JFrame {
         btnSearchRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fees_report_management_system/Images/search2.png"))); // NOI18N
         btnSearchRecord.setText(" Search Record");
         btnSearchRecord.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSearchRecordMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnSearchRecordMouseEntered(evt);
             }
@@ -289,6 +293,9 @@ public class PrintReciept extends javax.swing.JFrame {
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fees_report_management_system/Images/home.png"))); // NOI18N
         btnHome.setText("  HOME");
         btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHomeMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnHomeMouseEntered(evt);
             }
@@ -309,6 +316,9 @@ public class PrintReciept extends javax.swing.JFrame {
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fees_report_management_system/Images/logout.png"))); // NOI18N
         btnLogout.setText("      Logout");
         btnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLogoutMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnLogoutMouseEntered(evt);
             }
@@ -781,6 +791,25 @@ public class PrintReciept extends javax.swing.JFrame {
         update.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnEditMouseClicked
+
+    private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
+        // TODO add your handling code here:
+        Home home = new Home();
+        home.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnHomeMouseClicked
+
+    private void btnSearchRecordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchRecordMouseClicked
+        // TODO add your handling code here:
+        SearchRecord searchRecords = new SearchRecord();
+        searchRecords.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSearchRecordMouseClicked
+
+    private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
+        // TODO add your handling code here:
+        exit(0);
+    }//GEN-LAST:event_btnLogoutMouseClicked
 
     /**
      * @param args the command line arguments

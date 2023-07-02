@@ -6,6 +6,7 @@ package fees_report_management_system;
 
 import collegefeesmanagementsystem.NumberToWordsConverter;
 import java.awt.Color;
+import static java.lang.System.exit;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
@@ -292,6 +293,9 @@ public class AddFees extends javax.swing.JFrame {
         btnSearchRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fees_report_management_system/Images/search2.png"))); // NOI18N
         btnSearchRecord.setText(" Search Record");
         btnSearchRecord.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSearchRecordMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnSearchRecordMouseEntered(evt);
             }
@@ -395,6 +399,9 @@ public class AddFees extends javax.swing.JFrame {
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fees_report_management_system/Images/home.png"))); // NOI18N
         btnHome.setText("  HOME");
         btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHomeMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnHomeMouseEntered(evt);
             }
@@ -415,6 +422,9 @@ public class AddFees extends javax.swing.JFrame {
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fees_report_management_system/Images/logout.png"))); // NOI18N
         btnLogout.setText("      Logout");
         btnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLogoutMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnLogoutMouseEntered(evt);
             }
@@ -948,6 +958,25 @@ public class AddFees extends javax.swing.JFrame {
         // TODO add your handling code here:
             
     }//GEN-LAST:event_txt_AmountKeyTyped
+
+    private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
+        // TODO add your handling code here:
+        exit(0);
+    }//GEN-LAST:event_btnLogoutMouseClicked
+
+    private void btnSearchRecordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchRecordMouseClicked
+        // TODO add your handling code here:
+        SearchRecord searchRecords = new SearchRecord();
+        searchRecords.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSearchRecordMouseClicked
+
+    private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
+        // TODO add your handling code here:
+        Home home = new Home();
+        home.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnHomeMouseClicked
 
     /**
      * @param args the command line arguments
