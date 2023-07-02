@@ -823,7 +823,7 @@
             <Component class="javax.swing.JTextField" name="txt_RecievedFrom">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="15" style="0"/>
+                  <Font name="Segoe UI" size="18" style="1"/>
                 </Property>
               </Properties>
               <Events>
@@ -953,7 +953,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="210" y="180" width="470" height="-1"/>
+                  <AbsoluteConstraints x="340" y="180" width="230" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>

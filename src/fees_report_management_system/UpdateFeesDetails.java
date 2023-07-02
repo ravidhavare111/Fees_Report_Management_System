@@ -649,7 +649,7 @@ public class UpdateFeesDetails extends javax.swing.JFrame {
         jLabel17.setText("Head ");
         PanelChild.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, 50, -1));
 
-        txt_RecievedFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        txt_RecievedFrom.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txt_RecievedFrom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_RecievedFromActionPerformed(evt);
@@ -708,7 +708,7 @@ public class UpdateFeesDetails extends javax.swing.JFrame {
                 txt_CourseNameActionPerformed(evt);
             }
         });
-        PanelChild.add(txt_CourseName, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, 470, -1));
+        PanelChild.add(txt_CourseName, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 200, -1));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel21.setText("Sr. No.");

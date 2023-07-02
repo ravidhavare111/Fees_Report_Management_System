@@ -66,7 +66,7 @@ public class PrintReciept extends javax.swing.JFrame {
             
             if(PM.equals("Card")){
                 lbl_cheque_dd.setText("-");
-                txt_Cheque_DD.setText(rs.getString("-"));
+                txt_Cheque_DD.setText("-");
                 txt_Bank_Name.setText(rs.getString("bank_name"));  
             }
             
@@ -89,6 +89,7 @@ public class PrintReciept extends javax.swing.JFrame {
             
             
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -457,20 +458,20 @@ public class PrintReciept extends javax.swing.JFrame {
 
         txt_YearFrom.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_YearFrom.setText("From");
-        PanelPrint_Main.add(txt_YearFrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 300, 60, -1));
+        PanelPrint_Main.add(txt_YearFrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 300, 40, -1));
 
         txt_YearFrom1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_YearFrom1.setText("-");
-        PanelPrint_Main.add(txt_YearFrom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, 10, -1));
+        PanelPrint_Main.add(txt_YearFrom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 300, 10, -1));
 
         txt_YearTo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_YearTo.setText("To");
-        PanelPrint_Main.add(txt_YearTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 300, 60, -1));
+        PanelPrint_Main.add(txt_YearTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, 60, -1));
 
-        txt_Recieved_From.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_Recieved_From.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         txt_Recieved_From.setForeground(new java.awt.Color(102, 0, 102));
         txt_Recieved_From.setText("Recieved From");
-        PanelPrint_Main.add(txt_Recieved_From, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 110, -1));
+        PanelPrint_Main.add(txt_Recieved_From, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 210, -1));
 
         lbl_BankName3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_BankName3.setForeground(new java.awt.Color(102, 0, 102));
@@ -533,7 +534,7 @@ public class PrintReciept extends javax.swing.JFrame {
         lbl_CourseName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_CourseName.setForeground(new java.awt.Color(102, 0, 102));
         lbl_CourseName.setText("CourseName");
-        PanelPrint_Main.add(lbl_CourseName, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 400, 210, -1));
+        PanelPrint_Main.add(lbl_CourseName, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, 170, -1));
 
         txt_CGST.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_CGST.setForeground(new java.awt.Color(102, 0, 102));
