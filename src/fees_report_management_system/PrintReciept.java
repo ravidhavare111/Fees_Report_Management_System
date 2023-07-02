@@ -4,7 +4,16 @@
  */
 package fees_report_management_system;
 
+import java.sql.*;
 import java.awt.Color;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.io.ObjectInputStream;
 
 /**
  *
@@ -17,6 +26,70 @@ public class PrintReciept extends javax.swing.JFrame {
      */
     public PrintReciept() {
         initComponents();
+        getRecords();
+        Container C =  getContentPane();
+        C.setBackground(new Color(153,0,153));
+    }
+    
+    
+    public void getRecords(){
+        try {
+            Connection con1 = ConnectionProvider.getConnection();
+            String Query = "select * from fees_details order by reciept_no desc limit 1";
+            PreparedStatement pstmt = con1.prepareStatement(Query);
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            
+            txt_Reciept_No.setText(rs.getString("reciept_no"));
+            txt_Payment_Mode.setText(rs.getString("payment_mode"));
+            
+            String PM = rs.getString("payment_mode");
+            
+            if(PM.equals("Cash")){
+                lbl_cheque_dd.setText("");
+                txt_Cheque_DD.setText("");
+                lbl_BankName.setText("");
+                txt_Bank_Name.setText("");  
+            }
+            
+            if(PM.equals("DD")){
+                lbl_cheque_dd.setText("DD No. : ");
+                txt_Cheque_DD.setText(rs.getString("dd_no"));
+                txt_Bank_Name.setText(rs.getString("bank_name"));  
+            }
+            
+            if(PM.equals("Cheque")){
+                lbl_cheque_dd.setText("Cheque No. : ");
+                txt_Cheque_DD.setText(rs.getString("cheque_no"));
+                txt_Bank_Name.setText(rs.getString("bank_name"));  
+            }
+            
+            if(PM.equals("Card")){
+                lbl_cheque_dd.setText("-");
+                txt_Cheque_DD.setText(rs.getString("-"));
+                txt_Bank_Name.setText(rs.getString("bank_name"));  
+            }
+            
+            txt_Recieved_From.setText(rs.getString("student_name"));
+            txt_YearFrom.setText(rs.getString("year1"));
+            txt_YearTo.setText(rs.getString("year2"));
+            txt_Date.setText(rs.getString("date"));
+            txt_GSTIN.setText(rs.getString("gstin"));
+            lbl_CourseName.setText(rs.getString("course_name"));
+            txt_Amount.setText(rs.getString("amount"));
+            txt_CGST.setText(rs.getString("cgst"));
+            txt_SGST.setText(rs.getString("sgst"));
+            txt_TotalAmount.setText(rs.getString("total_amount"));
+            txt_TotalInWords.setText(rs.getString("total_in_words"));
+            txt_Remark.setText(rs.getString("remark"));
+            
+            
+            
+            
+            
+            
+        } catch (Exception e) {
+        }
     }
 
     /**
@@ -53,7 +126,7 @@ public class PrintReciept extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txt_Reciept_No = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        lbl_cheque_dd = new javax.swing.JLabel();
         lbl_Cheque = new javax.swing.JLabel();
         lbl_BankName = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -97,6 +170,7 @@ public class PrintReciept extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(153, 0, 153));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PanelSideBar.setBackground(new java.awt.Color(102, 0, 102));
@@ -254,6 +328,9 @@ public class PrintReciept extends javax.swing.JFrame {
         btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fees_report_management_system/Images/printer-.png"))); // NOI18N
         btnPrint.setText("       Print");
         btnPrint.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPrintMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnPrintMouseEntered(evt);
             }
@@ -274,6 +351,9 @@ public class PrintReciept extends javax.swing.JFrame {
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fees_report_management_system/Images/edit2.png"))); // NOI18N
         btnEdit.setText("       Edit");
         btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnEditMouseEntered(evt);
             }
@@ -315,10 +395,10 @@ public class PrintReciept extends javax.swing.JFrame {
         txt_Reciept_No.setText("Reciept No. :  ABC-");
         PanelPrint_Main.add(txt_Reciept_No, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 130, -1));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(102, 0, 102));
-        jLabel12.setText("Mode of Payment :");
-        PanelPrint_Main.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 130, -1));
+        lbl_cheque_dd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_cheque_dd.setForeground(new java.awt.Color(102, 0, 102));
+        lbl_cheque_dd.setText("Mode of Payment :");
+        PanelPrint_Main.add(lbl_cheque_dd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 130, -1));
 
         lbl_Cheque.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_Cheque.setForeground(new java.awt.Color(102, 0, 102));
@@ -400,7 +480,7 @@ public class PrintReciept extends javax.swing.JFrame {
         txt_Date.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_Date.setForeground(new java.awt.Color(102, 0, 102));
         txt_Date.setText("Date");
-        PanelPrint_Main.add(txt_Date, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 150, 50, -1));
+        PanelPrint_Main.add(txt_Date, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 150, 140, -1));
 
         lbl_BankName5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_BankName5.setForeground(new java.awt.Color(102, 0, 102));
@@ -467,7 +547,7 @@ public class PrintReciept extends javax.swing.JFrame {
 
         txt_Amount.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_Amount.setForeground(new java.awt.Color(102, 0, 102));
-        txt_Amount.setText("Course Amount");
+        txt_Amount.setText("Amount");
         PanelPrint_Main.add(txt_Amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 390, 140, -1));
 
         txt_TotalAmount.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -514,7 +594,7 @@ public class PrintReciept extends javax.swing.JFrame {
         jSeparator4.setForeground(new java.awt.Color(102, 0, 102));
         PanelPrint_Main.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 490, 350, 10));
 
-        getContentPane().add(PanelPrint_Main, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, 940, 780));
+        getContentPane().add(PanelPrint_Main, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 940, 780));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -531,11 +611,12 @@ public class PrintReciept extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 0, 50, 930));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Sitka Small", 1, 36)); // NOI18N
         jLabel2.setText("PRINT RECIEPT");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 250, 60));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 310, 60));
 
-        pack();
+        setSize(new java.awt.Dimension(1314, 844));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -633,19 +714,72 @@ public class PrintReciept extends javax.swing.JFrame {
 
     private void btnEditMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseEntered
         // TODO add your handling code here:
+        Color clr = new Color(153,0,153);
+        PanelEdit.setBackground(clr);
     }//GEN-LAST:event_btnEditMouseEntered
 
     private void btnEditMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseExited
         // TODO add your handling code here:
+        Color clr = new Color(102,0,102);
+        PanelEdit.setBackground(clr);
     }//GEN-LAST:event_btnEditMouseExited
 
     private void btnPrintMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseEntered
         // TODO add your handling code here:
+        Color clr = new Color(153,0,153);
+        PanelPrint.setBackground(clr);
+ 
+
     }//GEN-LAST:event_btnPrintMouseEntered
 
     private void btnPrintMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseExited
         // TODO add your handling code here:
+        Color clr = new Color(102,0,102);
+        PanelPrint.setBackground(clr);
     }//GEN-LAST:event_btnPrintMouseExited
+
+    private void btnPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseClicked
+        // TODO add your handling code here:
+         PrinterJob job = PrinterJob.getPrinterJob();
+            job.setJobName("Print Data");
+            
+            job.setPrintable(new Printable(){
+            public int print(Graphics pg,PageFormat pf, int pageNum){
+                    pf.setOrientation(PageFormat.LANDSCAPE);
+                 if(pageNum > 0){
+                    return Printable.NO_SUCH_PAGE;
+                }
+                
+                Graphics2D g2 = (Graphics2D)pg;
+                g2.translate(pf.getImageableX(), pf.getImageableY());
+                g2.scale(0.47,0.47);
+                
+                PanelPrint_Main.print(g2);
+         
+               
+                return Printable.PAGE_EXISTS;
+                         
+                
+            }
+    });
+            boolean ok = job.printDialog();
+        if(ok){
+        try{
+            
+        job.print();
+        }
+        catch (PrinterException ex){
+	ex.printStackTrace();
+}
+        }
+    }//GEN-LAST:event_btnPrintMouseClicked
+
+    private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
+        // TODO add your handling code here:
+        UpdateFeesDetails update = new UpdateFeesDetails();
+        update.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnEditMouseClicked
 
     /**
      * @param args the command line arguments
@@ -706,7 +840,6 @@ public class PrintReciept extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel9;
@@ -734,6 +867,7 @@ public class PrintReciept extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_SGST5;
     private javax.swing.JLabel lbl_SrNo;
     private javax.swing.JLabel lbl_SrNo1;
+    private javax.swing.JLabel lbl_cheque_dd;
     private javax.swing.JLabel txt_Amount;
     private javax.swing.JLabel txt_Bank_Name;
     private javax.swing.JLabel txt_CGST;

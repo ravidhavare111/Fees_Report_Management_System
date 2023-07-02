@@ -17,17 +17,19 @@ import javax.swing.JOptionPane;
  *
  * @author HP
  */
-public class AddFees extends javax.swing.JFrame {
+public class UpdateFeesDetails extends javax.swing.JFrame {
 
     /**
      * Creates new form AddFees
      */
-    public AddFees() {
+    public UpdateFeesDetails() {
         initComponents();
         displayCashFirst();
         fillCoursesComboBox();
         int recieptNo = getRecieptNo();
         txt_RecieptNo.setText(Integer.toString(recieptNo));
+        
+        setRecords();
                
     }
     
@@ -85,7 +87,7 @@ public class AddFees extends javax.swing.JFrame {
             return false;
         }
         
-        if(txt_Amount.getText().equals("") || txt_Amount.getText().matches("[0-9]+") == false){
+        if(txt_Amount.getText().equals("")){
             JOptionPane.showMessageDialog(PanelParent, "Please enter Correct Amount");
             return false;
         }
@@ -134,7 +136,7 @@ public class AddFees extends javax.swing.JFrame {
         return recieptNo+1;
     }
     
-    public String insertDataToDB(){
+    public String UpdateDataToDB(){
         String status = "";
         
         int recept_no = Integer.parseInt(txt_RecieptNo.getText());
@@ -161,26 +163,30 @@ public class AddFees extends javax.swing.JFrame {
         
         try {
             Connection con1 = ConnectionProvider.getConnection();
-            String Query = "insert into fees_details values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+           String Query = "update fees_details set  student_name=?, roll_no=?,  payment_mode=?, cheque_no=?, bank_name=?, "
+                   + "dd_no=?, course_name=?, gstin = ?, total_amount=?,  date=?, amount=?, cgst=?, sgst=?, total_in_words=?,"  
+                   + "remark=?, year1=?, year2=? where reciept_no=?";
+           
             PreparedStatement pstmt = con1.prepareCall(Query);
-            pstmt.setInt(1,recept_no);
-            pstmt.setString(2,student_Name);
-            pstmt.setString(3, roll_no);
-            pstmt.setString(4, payment_mode);
-            pstmt.setString(5,cheque_no);
-            pstmt.setString(6,bank_name);
-            pstmt.setString(7,dd_No);
-            pstmt.setString(8,course_name);
-            pstmt.setString(9, gstin);
-            pstmt.setFloat(10,total_amount);
-            pstmt.setString(11, newDate);
-            pstmt.setFloat(12, amount);
-            pstmt.setFloat(13, cgst);
-            pstmt.setFloat(14, sgst);
-            pstmt.setString(15, total_in_words);
-            pstmt.setString(16,remark);
-            pstmt.setInt(17, year1);
-            pstmt.setInt(18, year2);
+            
+            pstmt.setString(1,student_Name);
+            pstmt.setString(2, roll_no);
+            pstmt.setString(3, payment_mode);
+            pstmt.setString(4,cheque_no);
+            pstmt.setString(5,bank_name);
+            pstmt.setString(6,dd_No);
+            pstmt.setString(7,course_name);
+            pstmt.setString(8, gstin);
+            pstmt.setFloat(9,total_amount);
+            pstmt.setString(10, newDate);
+            pstmt.setFloat(11, amount);
+            pstmt.setFloat(12, cgst);
+            pstmt.setFloat(13, sgst);
+            pstmt.setString(14, total_in_words);
+            pstmt.setString(15,remark);
+            pstmt.setInt(16, year1);
+            pstmt.setInt(17, year2);
+            pstmt.setInt(18,recept_no);
             
             int rowCount = pstmt.executeUpdate();
             if(rowCount == 1){
@@ -198,6 +204,61 @@ public class AddFees extends javax.swing.JFrame {
          
         return status;  
     }
+    
+    
+    
+    public void setRecords(){
+        
+        try {
+            Connection con1 = ConnectionProvider.getConnection();
+            String Query = "select * from fees_details order by reciept_no desc limit 1";
+            PreparedStatement pstmt = con1.prepareStatement(Query);
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            
+            txt_RecieptNo.setText(rs.getString("reciept_no"));
+            combo_ModeOfPayment.setSelectedItem(rs.getString("payment_mode"));
+            txt_Cheque.setText(rs.getString("cheque_no"));
+            txt_DD.setText(rs.getString("dd_no"));
+            txt_BankName.setText(rs.getString("bank_name"));
+            txt_RecievedFrom.setText(rs.getString("student_name"));
+            txt_YearFrom.setText(rs.getString("year1"));
+            txt_YearTo.setText(rs.getString("year2"));
+            date.setDate(rs.getDate("date"));
+            txt_GSTNo.setText(rs.getString("gstin"));
+            txt_RollNo.setText(rs.getString("roll_no"));
+            combo_Course.setSelectedItem(rs.getString("course_name"));
+            txt_Amount.setText(rs.getString("amount"));
+            txt_CGST.setText(rs.getString("cgst"));
+            txt_SGST.setText(rs.getString("sgst"));
+            txt_TotalAmount.setText(rs.getString("total_amount"));
+            txt_AmountInWords.setText(rs.getString("total_in_words"));
+            txt_Remark.setText(rs.getString("remark"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        
+    }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        
+    
+    
+    
+    
         
         
          
@@ -610,11 +671,6 @@ public class AddFees extends javax.swing.JFrame {
                 txt_AmountActionPerformed(evt);
             }
         });
-        txt_Amount.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_AmountKeyTyped(evt);
-            }
-        });
         PanelChild.add(txt_Amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 180, 90, -1));
 
         txt_CGST.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -923,17 +979,17 @@ public class AddFees extends javax.swing.JFrame {
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
         if(FeesAddValidation()){
-            String status = insertDataToDB();
+            String status = UpdateDataToDB();
             
             if(status.equals("DONE")){
-                JOptionPane.showMessageDialog(PanelParent, "New Record Inserted Succesfully");
+                JOptionPane.showMessageDialog(PanelParent, "Record Updated Succesfully");
                 
                 PrintReciept pr = new PrintReciept();
                 pr.setVisible(true);
                 this.dispose();
             }
             else{
-                JOptionPane.showMessageDialog(PanelParent, "Record Insertion FAILED");
+                JOptionPane.showMessageDialog(PanelParent, "Record Updation FAILED");
             }
         }
     }//GEN-LAST:event_btnPrintActionPerformed
@@ -943,11 +999,6 @@ public class AddFees extends javax.swing.JFrame {
         
         txt_CourseName.setText(combo_Course.getSelectedItem().toString());
     }//GEN-LAST:event_combo_CourseActionPerformed
-
-    private void txt_AmountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_AmountKeyTyped
-        // TODO add your handling code here:
-            
-    }//GEN-LAST:event_txt_AmountKeyTyped
 
     /**
      * @param args the command line arguments
@@ -966,20 +1017,21 @@ public class AddFees extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddFees.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateFeesDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddFees.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateFeesDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddFees.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateFeesDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddFees.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateFeesDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddFees().setVisible(true);
+                new UpdateFeesDetails().setVisible(true);
             }
         });
     }
