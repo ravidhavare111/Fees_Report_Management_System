@@ -4,8 +4,13 @@
  */
 package fees_report_management_system;
 
+import collegefeesmanagementsystem.NumberToWordsConverter;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.*;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -19,6 +24,7 @@ public class AddFees extends javax.swing.JFrame {
     public AddFees() {
         initComponents();
         displayCashFirst();
+        fillCoursesComboBox();
                
     }
     
@@ -81,10 +87,33 @@ public class AddFees extends javax.swing.JFrame {
             return false;
         }
         
-        
-        
-
         return true;
+    }
+    
+    
+    public void fillCoursesComboBox(){
+        try {
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            String conUrl = "jdbc:mysql://localhost:3306/fees_report_management";
+            String conUserName = "root";
+            String conPassword = "Admin@123";
+            Connection con = DriverManager.getConnection(conUrl, conUserName, conPassword);
+            String Query = "select Course_Name from Courses";
+            PreparedStatement stmt = con.prepareStatement(Query);
+            ResultSet rs = stmt.executeQuery(Query);
+            while(rs.next()){
+                combo_Course.addItem(rs.getString("Course_Name"));
+            }
+   
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        
+        
+        
     }
     
     
@@ -456,7 +485,11 @@ public class AddFees extends javax.swing.JFrame {
         PanelChild.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 120, -1));
 
         combo_Course.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        combo_Course.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DD", "Cheque", "Cash", "Card" }));
+        combo_Course.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_CourseActionPerformed(evt);
+            }
+        });
         PanelChild.add(combo_Course, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 180, -1));
         PanelChild.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 133, 1080, 20));
         PanelChild.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 1080, 10));
@@ -727,9 +760,11 @@ public class AddFees extends javax.swing.JFrame {
         Float SGST = CGST;
         txt_SGST.setText(SGST.toString());
         
-        Float total = (float)(amount + CGST + SGST);
+        float total = (float)(amount + CGST + SGST);
         
         txt_Total.setText(Float.toString(total));
+        
+        txt_AmountInWords.setText(NumberToWordsConverter.convert((int)total) + " only");
         
         
         
@@ -805,6 +840,12 @@ public class AddFees extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(PanelParent, "AddFeesValidation Succesfull");
         }
     }//GEN-LAST:event_btnPrintActionPerformed
+
+    private void combo_CourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_CourseActionPerformed
+        // TODO add your handling code here:
+        
+        txt_CourseName.setText(combo_Course.getSelectedItem().toString());
+    }//GEN-LAST:event_combo_CourseActionPerformed
 
     /**
      * @param args the command line arguments
