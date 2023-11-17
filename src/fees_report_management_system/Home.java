@@ -4,6 +4,7 @@
  */
 package fees_report_management_system;
 
+import fees_report_management_system.SearchRecord;
 import java.awt.Color;
 import static java.lang.System.exit;
 

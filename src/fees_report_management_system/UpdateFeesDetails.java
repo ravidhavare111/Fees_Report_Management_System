@@ -4,7 +4,7 @@
  */
 package fees_report_management_system;
 
-import collegefeesmanagementsystem.NumberToWordsConverter;
+import fees_report_management_system.NumberToWordsConverter;
 import java.awt.Color;
 import static java.lang.System.exit;
 import java.sql.Connection;

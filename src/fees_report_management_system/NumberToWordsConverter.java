@@ -1,4 +1,4 @@
-package collegefeesmanagementsystem;
+package fees_report_management_system;
 
 
 import java.text.NumberFormat;
